@@ -1,6 +1,6 @@
 datasource db {
-    provider =  "sqlite"
-    url = "file:./staff.db"
+    provider = "sqlite"
+    url      = "file:./christmas.db"
 }
 
 generator client {
@@ -9,6 +9,15 @@ generator client {
 
 model staff {
     staff_pass_id String @id
-    team_name String 
-    created_at String
+    team_name     String
+    created_at    String
+    redemption    redemption[]
+}
+
+model redemption {
+    redeemed_id   String @id
+    staff_pass_id String
+    team_name     String
+    redeemed_at   String
+    staff         staff  @relation(fields: [staff_pass_id], references: [staff_pass_id])
 }

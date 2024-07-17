@@ -1,22 +1,13 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient()
-
-export const getStaffBasedOnId = async (id: string) => {
-    const staff = await prisma.staff.findUnique({
-        where: {
-            staff_pass_id: id
+export function formatData<T>(data: T): T {
+    if (Array.isArray(data)) {
+        return data.map((item) => formatData(item)) as unknown as T;
+    } else if (typeof data == "object" && data != null) {
+        const transformed: Record<string, any> = {};
+        for (const [key, val] of Object.entries(data)) {
+            // cannot stringify a bigint
+            transformed[key] = typeof val == "bigint" ? val.toString() : val;
         }
-    })
-
-    return staff;
-}
-
-export const getRedeemedRecord = async (teamName: string) => {
-    const record = await prisma.staff.findMany({
-        where: {
-            team_name: teamName
-        }
-    })
-    return record;
+        return transformed as T;
+    }
+    return data;
 }

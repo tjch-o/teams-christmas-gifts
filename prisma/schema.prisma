@@ -10,14 +10,14 @@ generator client {
 model staff {
     staff_pass_id String @id
     team_name     String
-    created_at    String
+    created_at    BigInt
     redemption    redemption[]
 }
 
 model redemption {
-    redeemed_id   String @id
+    redeemed_id   Int @id @default(autoincrement())
     staff_pass_id String
     team_name     String
-    redeemed_at   String
+    redeemed_at   BigInt
     staff         staff  @relation(fields: [staff_pass_id], references: [staff_pass_id])
 }

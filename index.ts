@@ -45,26 +45,18 @@ app.post("/redeem-gift", async (req, res) => {
         const teamName = staff.team_name
         const redeemed = await database.getRedeemedRecord(teamName)
 
-        if (redeemed) {
+        if (redeemed.length > 0) {
             return res.status(500).send(`Gift for team ${teamName} has already been redeemed`)
         }
 
-        // const time = Date.now()
+        const time = BigInt(Date.now())
         
-        // try {
-        //     const user = await prisma.redemption.create({
-        //         data: {
-        //             staff_pass_id: staff_pass_id,
-        //             team_name: teamName,
-        //             redeemed_at: time,
-        //         }
-        //     })
+        const record = await database.createRedemptionRecord(staff_pass_id, teamName, time)
 
-        //     if (!user) {
-        //         return res.status(400).send("Something wrong happened when redeeming gift")
-        //     }
-
-        //     return res.status(200).send("Successfully redeemed gift")
+        if (!record) {
+            return res.status(400).send("Something wrong happened when redeeming gift")
+        }
+        return res.status(200).send(`Successfully redeemed gift for ${teamName}`)
     } catch (e) {
         console.log(e)
     }

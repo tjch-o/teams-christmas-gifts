@@ -12,16 +12,23 @@ Steps:
 sqlite> .mode csv
 ```
 
-2. Import the file into sqlite3 to create
+2. Import the csv files into sqlite3 to create temporary tables.
 ```
-sqlite> .import ./staff-id-to-team-mapping-long.csv staff
-```
-
-```
-sqlite> .import ./redeemed.csv redemption
+sqlite> .import staff-id-to-team-mapping-long.csv temp_staff
 ```
 
-3. Export the file
+```
+sqlite> .import redeemed.csv temp_redemption
+```
+
+3. Import the sql file that will do data transformation and create tables.
+
+```
+sqlite> .read schema.sql
+```
+
+
+4. Export the file
 ```
 sqlite> .backup main christmas.db
 ```

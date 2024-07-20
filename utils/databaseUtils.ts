@@ -31,7 +31,6 @@ export const getRedeemedRecord = async (teamName: string) => {
             team_name: teamName,
         },
     });
-    console.log(record)
     return record;
 };
 

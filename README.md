@@ -1,4 +1,4 @@
-
+This is a Govtech take home assignment.
 
 ## Creating the database file
 
@@ -30,7 +30,7 @@ sqlite> .read schema.sql
 
 4. Export the file
 ```
-sqlite> .backup main christmas.db
+sqlite> .backup main prisma/christmas.db
 ```
 
 
